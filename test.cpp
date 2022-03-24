@@ -62,7 +62,7 @@ int add_register(Register *head, Register *R)
 
 
 
-
+/*
 int programm(Register *head)
 {
     if(head->next == NULL)
@@ -76,4 +76,4 @@ int programm(Register *head)
 
 
 
-}
+}*/
