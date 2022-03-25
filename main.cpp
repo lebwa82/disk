@@ -8,10 +8,10 @@ int main()
     test1();
 
 
-    Request head = Request("head", 1,2,1);
-    Register programm = Register(head);
+    //Request head = Request("head", 1,2,1);
+    //Register programm = Register(head);
 
-    cout << programm.data.requester_name << "\n" << programm.next << endl;
+    //cout << programm.data.requester_name << "\n" << programm.next << endl;
 
 
 }

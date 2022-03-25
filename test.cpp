@@ -16,9 +16,9 @@ int test1()
     for(i=0; i< sizeof(n)/sizeof(int); i++)
     //for(i=0; i< 1; i++)
     {
-        Request R=Request(str[i], n[i], e[i], b[i]);
+        Request *R= new Request(str[i], n[i], e[i], b[i]);
         //cout << R.requester_name <<" " << R.start_section <<" " << R.end_section <<" " << R.is_request_on_write << endl;
-        if(R.requester_name==str[i]&&R.start_section==n_good[i]&&R.end_section==e_good[i]&&R.is_request_on_write==b[i])
+        if(R->requester_name==str[i]&&R->start_section==n_good[i]&&R->end_section==e_good[i]&&R->is_request_on_write==b[i])
         {
             cout << "Success!" << endl;
         }

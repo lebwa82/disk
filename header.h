@@ -4,9 +4,71 @@
 using namespace std;
 
 int test1();
+class Single_cell_request
+{
+public:
+    string requester_name;
+    int start_section;
+    bool is_request_on_write;
+    int time;
+    Single_cell_request()
+    {
 
+    }
+    Single_cell_request(const string requester_name,const int start_section,const string time)
+    {
+        this->requester_name = requester_name;
+        this->start_section = start_section;
+        this->is_request_on_write = is_request_on_write;
+        if(time=="false")
+        {
+            this->time = 0;
+        }
+        else
+        {
+            try{
+                this->time = stoi(time);
+            }
+            catch(invalid_argument e) {
+                this->time = -1;
+                cout << "Caught Invalid Argument Exception\n";
+                
+            }
+            
+        }
+    }
+    void change_is_request_on_write()
+    {
+        //пока не понятно зачем менять тип запроса, если можно создать новый запрос
+        is_request_on_write = !is_request_on_write;
+    }
 
-class Request
+    const int operator>(const Single_cell_request& other) const
+    {
+        return start_section > other.start_section;  
+    }
+
+        const int operator<(const Single_cell_request& other) const
+    {
+        return start_section < other.start_section;  
+    }
+
+    const int operator==(const Single_cell_request& other) const
+    {
+        return start_section == other.start_section;
+    }
+    const int operator>=(const Single_cell_request& other) const
+    {
+        return start_section >= other.start_section;   
+    }
+    const int operator<=(const Single_cell_request& other) const
+    {
+        return start_section <= other.start_section; 
+    }
+
+};
+
+class Request : public Single_cell_request
 {
     friend int test1(); 
     friend int  main();//временно для отладки 
@@ -42,76 +104,18 @@ public:
         }
         
     }
-    void change_is_request_on_write()
-    {
-        //пока не понятно зачем менять тип запроса, если можно создать новый запрос
-        is_request_on_write = !is_request_on_write;
-    }
     
-    const int operator>(const Request& other) const
-    {
-        return start_section > other.start_section;  
-    }
-
-     const int operator<(const Request& other) const
-    {
-        return start_section < other.start_section;  
-    }
-
-    const int operator==(const Request& other) const
-    {
-        return start_section == other.start_section;
-    }
-    const int operator>=(const Request& other) const
-    {
-        return start_section >= other.start_section;   
-    }
-    const int operator<=(const Request& other) const
-    {
-        return start_section <= other.start_section; 
-    }
 };
 
-class Single_cell_request
-{
-public:
-    string requester_name;
-    int start_section;
-    bool is_request_on_write;
-    int time;
-
-    Single_cell_request(const string requester_name,const int start_section,const string time)
-    {
-        this->requester_name = requester_name;
-        this->start_section = start_section;
-        this->is_request_on_write = is_request_on_write;
-        if(time=="false")
-        {
-            this->time = 0;
-        }
-        else
-        {
-            try{
-                this->time = stoi(time);
-            }
-            catch(invalid_argument e) {
-                this->time = -1;
-                cout << "Caught Invalid Argument Exception\n";
-                
-            }
-            
-        }
-    }
-};
 
 class Register{
 public:
-    Request data;
+    Single_cell_request *data;
     Register *next;
     Register() {this->next=NULL;}
-    Register(const Request &data)
+    Register(Single_cell_request *data1)
     {
-        this->data = data;
+        this->data = data1;
         this->next=NULL;
     }
 
@@ -152,24 +156,23 @@ public:
     R->next = p->next;
     p->next = R;
     return 0;
+    
+
     }
-
-
 };
-
-
+/*
 class Programm_list //желательно сделать Singleton (взять из лекции)
 {
 public: 
     Programm data;
-    Programm * next;
+    Programm_list * next;
 
     Programm_list()
     {
         this->next=NULL;
     }
 
-    int add_programm_to_list(Programm *new_programm)
+    int add_programm_to_list(Programm *new_programm, Programm_list *head)
     {
     Register *p = head;
     while(p->next != NULL)
@@ -191,5 +194,5 @@ public:
 
 
 };
-
+*/
 
