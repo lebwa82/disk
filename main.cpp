@@ -5,7 +5,8 @@
 
 int main() 
 {
-    test1();
+    //test1();
+    model();
 
 
     //Request head = Request("head", 1,2,1);

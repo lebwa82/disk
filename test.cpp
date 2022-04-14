@@ -11,12 +11,12 @@ int test1()
     int b[]={0,0,1, 1};
     int n_good[]={3,-1,-1, 12};
     int e_good[]={5, -1, -1, 134};
+    int time[]={1,2,3,4,5};
     int i;
 
     for(i=0; i< sizeof(n)/sizeof(int); i++)
-    //for(i=0; i< 1; i++)
     {
-        Request *R= new Request(str[i], n[i], e[i], b[i]);
+        Request *R= new Request(str[i], n[i], e[i], b[i], time[i]);
         //cout << R.requester_name <<" " << R.start_section <<" " << R.end_section <<" " << R.is_request_on_write << endl;
         if(R->requester_name==str[i]&&R->start_section==n_good[i]&&R->end_section==e_good[i]&&R->is_request_on_write==b[i])
         {
@@ -25,55 +25,22 @@ int test1()
         else
         {
             cout << "Error in test " << i << endl;
+            //printf("%s == %s\n", R->requester_name, str[i]);
+            printf("%d == %d\n", R->start_section,n_good[i]); 
+            printf("%d == %d\n", R->end_section,e_good[i]);
+            printf("%d == %d\n", R->is_request_on_write, b[i]);
         }
     }
-
         Request R0 = Request(str[0], n[0], e[0], b[0]);
         Request R1 = Request(str[1], n[1], e[1], b[1]);
         if(R0 > R1) 
         {
             cout << "Success!" << endl;
-
         } 
         else { cout << "Error in test " << i << endl; }
     
     return 0;
 }
 
-int add_register(Register *head, Register *R)
-{
-    Register *p = head;
-    while(p->next != NULL)
-    {
-        if(R->data < p->data)
-        {
-            p=p->next;
-        }
-        else
-        {
-            break;
-        } 
-    } 
-
-    R->next = p->next;
-    p->next = R;
-    return 0;
-}
 
 
-
-/*
-int programm(Register *head)
-{
-    if(head->next == NULL)
-    {
-        return 0;
-    }
-
-    Register *p = head->next;
-
-    //TO DO
-
-
-
-}*/
