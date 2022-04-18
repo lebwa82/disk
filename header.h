@@ -80,6 +80,8 @@ public:
 
     }
 
+    //сделать виртуальный метод который запрашивает начало и конец и перегрузить его в наследнике
+
 };
 
 class Request : public Single_cell_request
@@ -121,7 +123,7 @@ public:
 
     void print()
     {
-        //printf("%s,  %d,   %d,   %d,   %d\n", requester_name, start_section, 
+        //printf("%s,  %d,   %d,   %d,   %d\n", requester_name.c_str(), start_section, 
         //end_section, is_request_on_write, time);
         cout << requester_name << "   " << start_section << "   " << end_section << "   ";
         cout << is_request_on_write << "   " << time << endl;

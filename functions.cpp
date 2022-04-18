@@ -4,9 +4,11 @@
 
 int model()
 {
-int real_time=0;
+int real_time=0;//метод программы - дай мне ближайший запрос как идея
 int i;
 
+map <char, Programm*> mp1;
+vector <map <char, Programm*> > dick_vectorl;
 //vector <Programm*> vector_programm;
 string strp[]={"request1_programm1","request2_programm1", "request3_programm1", "request4_programm1", "request5_programm2"};
 int start[]={3,1,5,4,2};
