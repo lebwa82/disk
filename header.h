@@ -10,11 +10,13 @@ int model();
 
 class Single_cell_request
 {
-public:
+private:
     string requester_name;
     int start_section;
     bool is_request_on_write;
     int time;
+
+public:
     Single_cell_request()
     {
 
@@ -80,6 +82,30 @@ public:
 
     }
 
+    virtual string get_requester_name()
+    {
+        return requester_name;
+    }
+
+    virtual int get_start_section()
+    {
+        return start_section;
+    }
+
+    int get_end_section()
+    {
+        return start_section+1;
+    }
+
+    virtual bool get_is_request_on_write()
+    {
+        return is_request_on_write;
+    }
+
+    virtual int get_time()
+    {
+        return time;
+    }    
     //сделать виртуальный метод который запрашивает начало и конец и перегрузить его в наследнике
 
 };
@@ -121,6 +147,11 @@ public:
         
     }
 
+    int get_end_section()
+    {
+        return end_section;
+    }
+
     void print()
     {
         //printf("%s,  %d,   %d,   %d,   %d\n", requester_name.c_str(), start_section, 
@@ -158,6 +189,7 @@ public:
     string programm_name;
     Register *head;
     int time_start_programm;
+    
 
     Programm(const string name, const int time_start_programm=0)
     {
@@ -174,10 +206,10 @@ public:
     while(p->next != NULL)
     {
         //printf("%d  %d  ", R->data->start_section, p->next->data->start_section);
-        R->print();
+        //R->print();
         //cout << "\n" << endl;
-        p->next->print();
-        cout << "\n" << endl;
+        //p->next->print();
+        //cout << "\n" << endl;
         if(R->data > p->next->data)
         {
             cout << "if" << endl;
@@ -203,9 +235,12 @@ public:
         {
             p->data->print();
             p=p->next;
-        }
-        
+        }   
     }
+
+
+    
+
 };
 
 
