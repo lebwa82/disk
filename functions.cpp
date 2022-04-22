@@ -14,24 +14,24 @@ string strp[]={"request1_programm1","request2_programm1", "request3_programm1", 
 int start[]={3,1,5,4,2};
 int end[]={7,8,9,10,11};
 bool write[]={0,0,1,0,1};
-int t[]={2,2,2,2,2}; 
+string t[]={"2","2","2","2","2"}; 
 
 
 Programm *Programm1 = new Programm("programm1");
 //Programm1->print();
-for(i=0; i<1; i++)
+for(i=0; i<5; i++)
 {
     Request *Request1= new Request(strp[i], start[i], end[i], write[i], t[i]);
     //Request1->print();
-    printf("for1 name = %s\n", Request1->get_requester_name().c_str());
+    //printf("for1 name = %s\n", Request1->get_requester_name().c_str());
     Register *Register1= new Register(Request1);//здесь хрень какая-то
-    printf("for2 name = %s\n", Register1->data->get_requester_name().c_str());
+    //printf("for2 name = %s\n", Register1->data->get_requester_name().c_str());
     //Register1->print();
     
     Programm1->add_register_to_programm(Register1);//почему-то не сортирует
 }
 
-//Programm1->print();
+Programm1->print();
 
 
 return 0;
@@ -89,5 +89,5 @@ int model1()
     
 
 
-
+return 0;
 }

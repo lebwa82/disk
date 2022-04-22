@@ -10,7 +10,7 @@ int model();
 
 class Single_cell_request
 {
-private:
+protected:
     string requester_name;
     int start_section;
     bool is_request_on_write;
@@ -21,7 +21,7 @@ public:
     {
 
     }
-    Single_cell_request(const string requester_name,const int start_section,const string time)
+    Single_cell_request(const string requester_name,const int start_section, bool is_request_on_write, const string time="0")
     {
         this->requester_name = requester_name;
         this->start_section = start_section;
@@ -51,11 +51,13 @@ public:
 
     const int operator>(const Single_cell_request& other) const
     {
+        //printf("operator>: %d %d", start_section, other.start_section);
         return start_section > other.start_section;  
     }
 
-        const int operator<(const Single_cell_request& other) const
+    const int operator<(const Single_cell_request& other) const
     {
+        //printf("operator<: %d %d", start_section, other.start_section);
         return start_section < other.start_section;  
     }
 
@@ -92,7 +94,7 @@ public:
         return start_section;
     }
 
-    int get_end_section()
+    virtual int get_end_section()
     {
         return start_section+1;
     }
@@ -116,13 +118,7 @@ class Request : public Single_cell_request
     friend int  main();//временно для отладки 
     
 private:
-
-    string requester_name;
-    int start_section;
     int end_section;
-    bool is_request_on_write;
-    int time;
-    //0 - read, 1 - write
 
 public:
     Request()
@@ -130,19 +126,17 @@ public:
 
     }
     Request(string requester_name, const int start_section,
-    const int end_section, const bool is_request_on_write, int time=0)
-    {
-        this->requester_name = requester_name;
-        this->start_section = start_section;
+    const int end_section, const bool is_request_on_write, string time="0"):
+    Single_cell_request(requester_name,start_section, is_request_on_write,time)
+    { 
         this->end_section = end_section;
-        this->is_request_on_write = is_request_on_write;
-        this->time = time;
         if(start_section>=end_section || start_section<0 || end_section <0)
         {
             cout << "error when creating...  ";
             //надо как-то обработать ошибку, но пока так
-            this->start_section = -1;
-            this->end_section = -1;
+            //this->start_section = -1;//лушче сделать исключение 
+             //прописать метод -сделать объект невалидным
+            //this->end_section = -1;
         }
         
     }
@@ -190,12 +184,11 @@ public:
     Register *head;
     int time_start_programm;
     
-
     Programm(const string name, const int time_start_programm=0)
     {
         this->programm_name = name;
         this->time_start_programm = time_start_programm;
-        Request *R = new Request("zero_request", 0, 1, 0 ,1); //вспомагательный "нулевой" элемент
+        Request *R = new Request("zero_request", 0, 1, 0); //вспомагательный "нулевой" элемент
         head = new Register(R);
         
     }
@@ -205,19 +198,16 @@ public:
     Register *p = head;
     while(p->next != NULL)
     {
-        //printf("%d  %d  ", R->data->start_section, p->next->data->start_section);
-        //R->print();
         //cout << "\n" << endl;
-        //p->next->print();
-        //cout << "\n" << endl;
-        if(R->data > p->next->data)
+        //printf("%d %d   ", R->data->get_start_section(), p->next->data->get_start_section());
+        if(*(R->data) > *(p->next->data))
         {
-            cout << "if" << endl;
+            //cout << "if" << endl;
             p=p->next;
         }
         else
         {   
-            cout << "else" << endl;
+            //cout << "else" << endl;
             break;
         } 
     } 
@@ -228,7 +218,7 @@ public:
 
     void print()
     {
-        cout << "programm_name = " << programm_name << ", start program at " << time_start_programm << endl;
+        cout << "programm_name = " << programm_name << ", start program at " << time_start_programm << "\n" << endl;
         cout << "requester_name, start_section, is_request_on_write, time" << endl;
         Register *p = head;
         while(p != NULL)

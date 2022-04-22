@@ -11,7 +11,7 @@ int test1()
     int b[]={0,0,1, 1};
     int n_good[]={3,-1,-1, 12};
     int e_good[]={5, -1, -1, 134};
-    int time[]={1,2,3,4,5};
+    string time[]={"1","2","3","4","5"};
     int i;
 
     for(i=0; i< sizeof(n)/sizeof(int); i++)
@@ -31,13 +31,13 @@ int test1()
             printf("%d == %d\n", R->is_request_on_write, b[i]);
         }
     }
-        Request R0 = Request(str[0], n[0], e[0], b[0]);
-        Request R1 = Request(str[1], n[1], e[1], b[1]);
-        if(R0 > R1) 
-        {
-            cout << "Success!" << endl;
-        } 
-        else { cout << "Error in test " << i << endl; }
+    Request R0 = Request(str[0], n[0], e[0], b[0]);
+    Request R1 = Request(str[1], n[1], e[1], b[1]);
+    if(R0 > R1) 
+    {
+        cout << "Success!" << endl;
+    } 
+    else { cout << "Error in test " << i << endl; }
     
     return 0;
 }
