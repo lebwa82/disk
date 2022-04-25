@@ -130,13 +130,10 @@ public:
     Single_cell_request(requester_name,start_section, is_request_on_write,time)
     { 
         this->end_section = end_section;
-        if(start_section>=end_section || start_section<0 || end_section <0)
+        if(start_section >= end_section || start_section<0 || end_section <0)
         {
-            cout << "error when creating...  ";
-            //надо как-то обработать ошибку, но пока так
-            //this->start_section = -1;//лушче сделать исключение 
-             //прописать метод -сделать объект невалидным
-            //this->end_section = -1;
+            //cout << "error when creating...  ";
+            throw 1;
         }
         
     }

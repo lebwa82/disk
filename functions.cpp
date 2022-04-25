@@ -4,7 +4,7 @@
 
 int model()
 {
-int real_time=0;//метод программы - дай мне ближайший запрос как идея
+//int real_time=0;//метод программы - дай мне ближайший запрос как идея
 int i;
 
 map <char, Programm*> mp1;
@@ -22,12 +22,7 @@ Programm *Programm1 = new Programm("programm1");
 for(i=0; i<5; i++)
 {
     Request *Request1= new Request(strp[i], start[i], end[i], write[i], t[i]);
-    //Request1->print();
-    //printf("for1 name = %s\n", Request1->get_requester_name().c_str());
     Register *Register1= new Register(Request1);//здесь хрень какая-то
-    //printf("for2 name = %s\n", Register1->data->get_requester_name().c_str());
-    //Register1->print();
-    
     Programm1->add_register_to_programm(Register1);//почему-то не сортирует
 }
 
@@ -42,7 +37,9 @@ int model1()
 {
     int real_time=0;
     vector <Programm*> programm_vector;
-    vector <map <char, Programm*> > disk_vector;
+    vector <multimap <char, Programm*> > disk_vector;
+    multimap <Programm*, Programm*> wait_map;
+
     int i=0;
 
     for(i=0; i<programm_vector.size(); i++)
@@ -51,24 +48,38 @@ int model1()
         Register *p=current_programm->head;
         int time_start_programm = current_programm->time_start_programm;
         while(p!=NULL)//перебираем запросы
-        {//насколько надо упарываться и для каждого поля делать get метод?
+        {
             int is_request_on_write = p->data->get_is_request_on_write();
+            int time_request = time_start_programm + p->data->get_time();//насколько надо упарываться и для каждого поля делать get метод?
 
-            if(is_request_on_write==1)
+            if(time_request == real_time)
             {
-                int flag=0;//есть ли невозможные для записи клетки
-                for(int disk_i=p->data->get_start_section(); 
-                disk_i<p->data->get_end_section(); disk_i++)//идем по области диска
+                if(is_request_on_write==1)
                 {
-                    if(disk_vector[disk_i].empty())
+                    int flag=0;//есть ли невозможные для записи клетки
+                    multimap <char, Programm*> blocked_cell; 
+                    for(int disk_i=p->data->get_start_section(); 
+                    disk_i<p->data->get_end_section(); disk_i++)//идем по области диска
                     {
-                        flag=1;//так это попытка записи, то если кто-то еще смотрит
-                        //хотя бы одну клетку - то мы вылетаем
-                        break;
+                        if(!disk_vector[disk_i].empty())//если не пустой
+                        {
+                            flag=1;//так это попытка записи, то если кто-то еще смотрит
+                            //хотя бы одну клетку - то мы вылетаем
+                            blocked_cell = disk_vector[disk_i];
+                            break;
+                        }
+                    }
+                    if(flag==1)//если какой-то блок недоступен
+                    {
+                        //wait_map[current_programm] = 
+
+
                     }
 
 
+
                 }
+
 
             }
 
