@@ -51,25 +51,11 @@ int model1()
         {
             int is_request_on_write = p->data->get_is_request_on_write();
             int time_request = time_start_programm + p->data->get_time();//насколько надо упарываться и для каждого поля делать get метод?
-
             if(time_request == real_time)//если сейчас время выполнить запрос
-            {
-                if(is_request_on_write==1)//пытаемся писать
-                {
-                  
-                
+            { 
                     disk_request(real_time, !bool(is_request_on_write),
-                     current_programm, disk_vector, wait_map); //попробовать запустить это
-                
-                
-                }
-
-
-
-                
-
-
-            }
+                     current_programm, disk_vector, wait_map, p); //она либо запишет, либо добавит записи в wait_map
+            }//проверить передачу по ссылке
 
 
 

@@ -4,13 +4,9 @@
 
 
 int disk_request(int real_time, int is_on_read, Programm* current_programm, 
-                vector <multimap <int, Programm*> > disk_vector, 
-                multimap <Programm*, Programm*> wait_map)
+                vector <multimap <int, Programm*> > &disk_vector, 
+                multimap <Programm*, Programm*> &wait_map, Register *p)
 {//вернет список программ которые надо подождать
-    
-    Register *p=current_programm->head;
-
-
     int flag=0;//есть ли невозможные для записи клетки
     multimap <int, Programm*> blocked_cell; 
 
@@ -37,6 +33,7 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
             wait_map.insert(make_pair(current_programm, it->second));
             //wait_map[current_programm] = it->second; не понятно, почему не работает
             //ERROR
+            p->data->increase_time_by_1();//увеличим время, чтобы в следующий раз снова проверить возможность действия
         }
     }
 
@@ -49,12 +46,25 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
         }
     }
 
+}
 
 
 
 
-
-
-
-
+int is_deadblock(multimap <Programm*, Programm*> wait_map)
+{
+    multimap <Programm*, Programm*> :: iterator one = wait_map.begin();
+    multimap <Programm*, Programm*> :: iterator two;
+    int flag=0;
+    for(;one!=wait_map.end( );one++)
+    {
+        for(two = one;two!=wait_map.end( );two++)
+        {
+            if(one->first == two->second && one->second == two->first)
+            {
+                return 1;//все плохо - дедблок есть
+            }
+        }
+    }
+    return 0;//все хорошо
 }

@@ -110,7 +110,10 @@ public:
         return time;
     }    
     //сделать виртуальный метод который запрашивает начало и конец и перегрузить его в наследнике
-
+    int increase_time_by_1()
+    {
+        time++;
+    }
 };
 
 class Request : public Single_cell_request
@@ -234,8 +237,8 @@ public:
 
 
 int disk_request(int real_time, int is_on_read, Programm* current_programm, 
-                vector <multimap <int, Programm*> > disk_vector, 
-                multimap <Programm*, Programm*> wait_map);
+                vector <multimap <int, Programm*> > &disk_vector, 
+                multimap <Programm*, Programm*> &wait_map, Register *p);
 
 
 
