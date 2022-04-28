@@ -7,9 +7,7 @@ using namespace std;
 
 int test1();
 int model();
-int disk_request(int real_time, int is_on_read, Programm* current_programm, 
-                vector <multimap <int, Programm*> > disk_vector, 
-                multimap <Programm*, Programm*> wait_map);
+
 
 class Single_cell_request
 {
@@ -233,6 +231,11 @@ public:
 
 };
 
+
+
+int disk_request(int real_time, int is_on_read, Programm* current_programm, 
+                vector <multimap <int, Programm*> > disk_vector, 
+                multimap <Programm*, Programm*> wait_map);
 
 
 

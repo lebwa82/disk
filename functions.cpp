@@ -56,46 +56,10 @@ int model1()
             {
                 if(is_request_on_write==1)//пытаемся писать
                 {
-                    int flag=0;//есть ли невозможные для записи клетки
-                    multimap <int, Programm*> blocked_cell; 
-
-                    for(int disk_i=p->data->get_start_section(); 
-                    disk_i<p->data->get_end_section(); disk_i++)//идем по области диска
-                    {
-                        if(!disk_vector[disk_i].empty())//если не пустой
-                        {
-                            flag=1;//так это попытка записи, то если кто-то еще смотрит
-                            //хотя бы одну клетку - то мы вылетаем
-                            blocked_cell = disk_vector[disk_i];
-                            break;//по идее я могу вылететь:
-                            //типа я подожду завершения этой программы и потом пройду дальше
-                            //я в любом случае найду deadblock - только позже
-                        }
-                    }
-
-                    if(flag==1)//если какой-то блок недоступен
-                    {
-                        multimap <int, Programm*> :: iterator it;
-                        it = blocked_cell.begin();
-                        for(;it!=blocked_cell.end( );it++)
-                        {//составляем список ожидания для каждой программы
-                            wait_map.insert(make_pair(current_programm, it->second));
-                            //wait_map[current_programm] = it->second; не понятно, почему не работает
-                            //ERROR
-                        }
-                    }
-
-                    else//то есть запись возможна
-                    {
-                        for(int disk_i=p->data->get_start_section(); 
-                        disk_i<p->data->get_end_section(); disk_i++)
-                        {//Пишем данные
-                            disk_vector[disk_i].insert(make_pair(1, current_programm));
-                        }
-                    }
+                  
                 
-                //disk_request(real_time, !bool(is_request_on_write), 
-                //current_programm, disk_vector, wait_map); попробовать запустить это
+                    disk_request(real_time, !bool(is_request_on_write),
+                     current_programm, disk_vector, wait_map); //попробовать запустить это
                 
                 
                 }
