@@ -14,6 +14,7 @@ int test1()
     string time[]={"1","2","3","4","5"};
     int i;
     int count=0;
+    printf("Test1:\n");
     for(i=0; i< sizeof(n)/sizeof(int); i++)
     {
         try
@@ -43,14 +44,64 @@ int test1()
     Request *R0 = new Request(str[0], n[0], e[0], b[0]);
     Request *R1 = new Request(str[1], n[1], e[3], b[0]);
 
-    if(*R1 >= *R0) 
-    {
-        //cout << "Success!" << endl;
-    } 
-    else { cout << "Error in test " << i << endl; }
-    
+    if(*R1 < *R0) 
+    { 
+        cout << "Error in test " << i << endl; 
+    }
     return 0;
 }
 
+
+int test2()
+{
+    int i;
+
+    map <char, Programm*> mp1;
+    vector <map <char, Programm*> > dick_vectorl;
+    //vector <Programm*> vector_programm;
+    string strp[]={"request1_programm1","request2_programm1", "request3_programm1", "request4_programm1", "request5_programm2"};
+    int start[]={3,1,5,4,2};
+    int end[]={7,8,9,10,11};
+    bool write[]={0,0,1,0,1};
+    string t[]={"2","2","2","2","2"}; 
+
+    string name="programm1";
+    Programm *Programm1 = new Programm(name);
+
+    for(i=0; i<5; i++)
+    {
+        Request *Request1= new Request(strp[i], start[i], end[i], write[i], t[i]);
+        Register *Register1= new Register(Request1);
+        Programm1->add_register_to_programm(Register1);
+    }
+
+    //Programm1->print();
+    printf("Test2:\n");
+    if(Programm1->programm_name!=name) printf("Error in test 0");
+    i=0;
+    Register *p = Programm1->head;
+    while(p!=NULL)
+    {
+        i++;
+        p=p->next;
+    }
+    if(i!=6) printf("Error in add Registers");
+    Programm1->delete_reqister_from_programm(Programm1->head->next);
+    Programm1->delete_reqister_from_programm(Programm1->head->next);
+    i=0;
+    p = Programm1->head;
+    while(p!=NULL)
+    {
+        i++;
+        p=p->next;
+    }
+    if(i!=4) printf("Error in delete Registers. i must be 4 and i=%d", i);
+
+
+    //Programm1->print();
+
+
+    return 0;
+}
 
 

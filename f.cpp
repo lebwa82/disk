@@ -65,7 +65,6 @@ int is_deadlock(multimap <Programm*, Programm*> wait_map)
 {
     multimap <Programm*, Programm*> :: iterator one = wait_map.begin();
     multimap <Programm*, Programm*> :: iterator two;
-    int flag=0;
     for(;one!=wait_map.end( );one++)
     {
         for(two = one;two!=wait_map.end( );two++)

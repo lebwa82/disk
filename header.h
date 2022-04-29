@@ -6,8 +6,8 @@
 using namespace std;
 
 int test1();
-int model();
-int is_deadlock(multimap <Programm*, Programm*> wait_map);
+int test2();
+
 
 class Single_cell_request
 {
@@ -260,3 +260,4 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
 
 
 int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <int, Programm*> > &disk_vector, vector <Programm*> &programm_vector);
+int is_deadlock(multimap <Programm*, Programm*> wait_map);
