@@ -22,8 +22,8 @@ Programm *Programm1 = new Programm("programm1");
 for(i=0; i<5; i++)
 {
     Request *Request1= new Request(strp[i], start[i], end[i], write[i], t[i]);
-    Register *Register1= new Register(Request1);//здесь хрень какая-то
-    Programm1->add_register_to_programm(Register1);//почему-то не сортирует
+    Register *Register1= new Register(Request1);
+    Programm1->add_register_to_programm(Register1);
 }
 
 Programm1->print();
@@ -45,22 +45,22 @@ int model1()
     for(i=0; i<programm_vector.size(); i++)
     {
         Programm* current_programm = programm_vector[i];
-        Register *p=current_programm->head;
+        Register *current_register=current_programm->head;
         int time_start_programm = current_programm->time_start_programm;
-        while(p!=NULL)//перебираем запросы
+        while(current_register!=NULL)//перебираем запросы
         {
-            int is_request_on_write = p->data->get_is_request_on_write();
-            int time_request = time_start_programm + p->data->get_time();//насколько надо упарываться и для каждого поля делать get метод?
+            int is_request_on_write = current_register->data->get_is_request_on_write();
+            int time_request = time_start_programm + current_register->data->get_time();//насколько надо упарываться и для каждого поля делать get метод?
             if(time_request == real_time)//если сейчас время выполнить запрос
             { 
                     disk_request(real_time, !bool(is_request_on_write),
-                     current_programm, disk_vector, wait_map, p); //она либо запишет, либо добавит записи в wait_map
+                     current_programm, disk_vector, wait_map, current_register); //она либо запишет, либо добавит записи в wait_map
             }//проверить передачу по ссылке
 
 
 
 
-            p=p->next;
+            current_register=current_register->next;
         }
 
 

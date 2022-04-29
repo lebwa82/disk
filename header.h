@@ -196,26 +196,44 @@ public:
     
     int add_register_to_programm(Register *R)
     {
-    Register *p = head;
-    while(p->next != NULL)
-    {
-        //cout << "\n" << endl;
-        //printf("%d %d   ", R->data->get_start_section(), p->next->data->get_start_section());
-        if(*(R->data) > *(p->next->data))
+        Register *p = head;
+        while(p->next != NULL)
         {
-            //cout << "if" << endl;
-            p=p->next;
-        }
-        else
-        {   
-            //cout << "else" << endl;
-            break;
+            //cout << "\n" << endl;
+            //printf("%d %d   ", R->data->get_start_section(), p->next->data->get_start_section());
+            if(*(R->data) > *(p->next->data))
+            {
+                //cout << "if" << endl;
+                p=p->next;
+            }
+            else
+            {   
+                //cout << "else" << endl;
+                break;
+            } 
         } 
-    } 
-    R->next = p->next;
-    p->next = R;
-    return 0;
+        R->next = p->next;
+        p->next = R;
+        return 0;
     }
+
+    int delete_reqister_from_programm(Register *R)
+    {
+        Register *p = head;
+        while(p->next != NULL)
+        {
+            if(p->next == R)
+            {
+                Register *y = R->next;
+                delete(R);
+                p->next = y;
+                return 0;
+            }
+        }
+        return 1;//такого регистра в программе нет
+    }
+
+
 
     void print()
     {
