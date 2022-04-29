@@ -110,7 +110,7 @@ public:
         return time;
     }    
     //сделать виртуальный метод который запрашивает начало и конец и перегрузить его в наследнике
-    int increase_time_by_1()
+    void increase_time_by_1()
     {
         time++;
     }
@@ -259,4 +259,4 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
                 multimap <Programm*, Programm*> &wait_map, Register *p);
 
 
-
+int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <int, Programm*> > &disk_vector, vector <Programm*> &programm_vector);

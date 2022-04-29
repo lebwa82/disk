@@ -55,18 +55,12 @@ int model1()
             { 
                     disk_request(real_time, !bool(is_request_on_write),
                      current_programm, disk_vector, wait_map, current_register); //она либо запишет, либо добавит записи в wait_map
-            }//проверить передачу по ссылке
-
-
-
+            }
 
             current_register=current_register->next;
         }
 
-
-        
-
-
+        delete_programm_if_it_empty(current_programm, disk_vector, programm_vector);
 
 
     }
