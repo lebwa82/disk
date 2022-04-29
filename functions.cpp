@@ -61,12 +61,16 @@ int model1()
         }
 
         delete_programm_if_it_empty(current_programm, disk_vector, programm_vector);
-
-
+        if( is_deadlock(wait_map)  )
+        {
+            cout << "DEADLOCK" << endl;
+            return 1;
+        }
     }
 
-    
 
+
+    //real_time++; переход на следующий шаг
 
 return 0;
 }

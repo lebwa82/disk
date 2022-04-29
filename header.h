@@ -7,7 +7,7 @@ using namespace std;
 
 int test1();
 int model();
-
+int is_deadlock(multimap <Programm*, Programm*> wait_map);
 
 class Single_cell_request
 {

@@ -5,13 +5,13 @@
 
 int disk_request(int real_time, int is_on_read, Programm* current_programm, 
                 vector <multimap <int, Programm*> > &disk_vector, 
-                multimap <Programm*, Programm*> &wait_map, Register *p)
+                multimap <Programm*, Programm*> &wait_map, Register *current_register)
 {//вернет список программ которые надо подождать
     int flag=0;//есть ли невозможные для записи клетки
     multimap <int, Programm*> blocked_cell; 
 
-    for(int disk_i=p->data->get_start_section(); 
-    disk_i<p->data->get_end_section(); disk_i++)//идем по области диска
+    for(int disk_i=current_register->data->get_start_section(); 
+    disk_i<current_register->data->get_end_section(); disk_i++)//идем по области диска
     {
         if(disk_vector[disk_i].count(1)+disk_vector[disk_i].count(is_on_read)>0)//если не пустой
         {//если хочу читать - то не должно быть запросов на запись. А если хочу писать - то никаких
@@ -31,27 +31,37 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
         for(;it!=blocked_cell.end( );it++)
         {//составляем список ожидания для каждой программы
             wait_map.insert(make_pair(current_programm, it->second));
-            //wait_map[current_programm] = it->second; не понятно, почему не работает
-            //ERROR
-            p->data->increase_time_by_1();//увеличим время, чтобы в следующий раз снова проверить возможность действия
-        }
+            
+            Register * p = current_programm->head;
+            while(p!= NULL)
+            {
+                if(p->data->get_time() == real_time)
+                {
+                    current_register->data->increase_time_by_1();
+//отложим программу на 1, чтобы в следующий раз еще раз проверить возможность действия
+                }
+                p=p->next;
+            }
+        }  
     }
 
     else//то есть запись возможна
     {
-        for(int disk_i=p->data->get_start_section(); 
-        disk_i<p->data->get_end_section(); disk_i++)
+        for(int disk_i=current_register->data->get_start_section(); 
+        disk_i<current_register->data->get_end_section(); disk_i++)
         {//Пишем данные
             disk_vector[disk_i].insert(make_pair(1, current_programm));
         }
+        current_programm->delete_reqister_from_programm(current_register);
     }
+    return 0;
 
 }
 
 
 
 
-int is_deadblock(multimap <Programm*, Programm*> wait_map)
+int is_deadlock(multimap <Programm*, Programm*> wait_map)
 {
     multimap <Programm*, Programm*> :: iterator one = wait_map.begin();
     multimap <Programm*, Programm*> :: iterator two;
@@ -67,4 +77,42 @@ int is_deadblock(multimap <Programm*, Programm*> wait_map)
         }
     }
     return 0;//все хорошо
+}
+
+
+
+
+int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <int, Programm*> > &disk_vector, vector <Programm*> &programm_vector)
+{
+    if(current_programm->head!= NULL)
+    {
+        return 1;//если в программе еще есть запросы - ее удалять не надо
+    }
+    multimap <int, Programm*> mp;
+    multimap <int, Programm*> :: iterator it;
+    int disk_i=0;
+    for(disk_i=0; disk_i<disk_vector.size(); disk_i++)
+    {
+        mp = disk_vector[disk_i];
+        for(;it!=mp.end( );it++)
+        {
+            if(it->second == current_programm)
+            {
+                mp.erase(it);//Нужно ли сделать it--?
+            }
+        }
+        vector <Programm*> :: iterator v;
+        for(v = programm_vector.begin(); v!=programm_vector.end(); v++)
+        {
+            if(*v==current_programm)
+            {
+                programm_vector.erase(v);
+            }
+        }
+        
+    }
+    return 0;
+
+
+
 }
