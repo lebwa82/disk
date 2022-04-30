@@ -4,10 +4,10 @@
 
 
 
-int model1()
+int model(vector <Programm*> &programm_vector)
 {
     int real_time=0;
-    vector <Programm*> programm_vector;
+    
     vector <multimap <int, Programm*> > disk_vector;
     multimap <Programm*, Programm*> wait_map;
     

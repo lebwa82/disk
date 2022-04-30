@@ -17,7 +17,11 @@ extern "C"{
         Register* Register1 = new Register(Request1);
         Programm1->add_register_to_programm(Register1);
     }
-
+    
+    int model(Programm***programm_vector)
+    {
+        model(programm_vector);
+    }
 
 
 }
