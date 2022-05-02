@@ -193,6 +193,11 @@ public:
         head = new Register(R);
         
     }
+
+    string get_programm_name()
+    {
+        return programm_name;
+    }
     
     int add_register_to_programm(Register *R)
     {

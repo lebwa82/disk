@@ -4,11 +4,16 @@
 
 
 extern "C"{
-    /*
+    
     Programm *create_programm(char* name, int time_start_programm=0)
     {
         return new Programm(name, time_start_programm);
     }
+
+    const char* get_programm_name(Programm *P)
+    {
+        return P->get_programm_name().c_str();
+    }        
 
     int add_register_to_programm(Programm* Programm1, char* requester_name, int start_section,
     int end_section, int is_request_on_write, char* time="0")
@@ -21,7 +26,7 @@ extern "C"{
     int model(Programm**programm_vector)
     {
         model(programm_vector);
-    }*/
+    }
 
     int start_programm(int number_of_programms, char**programm_names, 
     int* time_start_programm, int* number_of_reqisters, char*** requester_name,
@@ -40,7 +45,7 @@ extern "C"{
                 Programm1->add_register_to_programm(Register1);
             }
         }
-        model(programm_vector);
+        //model(programm_vector);
     }
 
 }
