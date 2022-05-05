@@ -266,3 +266,6 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
 int model(vector <Programm*> &programm_vector);
 int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <int, Programm*> > &disk_vector, vector <Programm*> &programm_vector);
 int is_deadlock(multimap <Programm*, Programm*> wait_map);
+
+
+
