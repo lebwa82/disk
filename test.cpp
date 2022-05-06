@@ -35,9 +35,9 @@ int test1()
             }
 
         }
-        catch(int e)
+        catch(exception)
         {
-
+            cout << "Error in creating";
         }
     }
     

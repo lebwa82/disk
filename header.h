@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <exception>
 
 using namespace std;
 
@@ -39,10 +40,18 @@ public:
             catch(invalid_argument e) {
                 this->time = -1;
                 cout << "Caught Invalid Argument Exception\n";
-                
+//add code of error to python to catch it out of library
             }
             
         }
+
+        if(start_section<0 || this->time<0)
+        {
+            //cout << "error when creating...  ";
+            throw exception();
+        }
+
+
     }
     void change_is_request_on_write()
     {
@@ -137,7 +146,7 @@ public:
         if(start_section >= end_section || start_section<0 || end_section <0)
         {
             //cout << "error when creating...  ";
-            throw 1;
+            throw exception();
         }
         
     }

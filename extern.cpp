@@ -7,7 +7,7 @@ extern "C"{
     
     Wrapper* create_wrapper()
     {
-        return new Wrapper();
+        return new Wrapper;
     }
     
     Programm* create_programm(char* name, Wrapper *W, int time_start_programm=0)
@@ -25,10 +25,17 @@ extern "C"{
     int add_register_to_programm(Programm* Programm1, char* requester_name, int start_section,
     int end_section, int is_request_on_write, char* time)
     {
-        Request* Request1 = new Request(requester_name, start_section, end_section, is_request_on_write, time);
-        Register* Register1 = new Register(Request1);
-        Programm1->add_register_to_programm(Register1);
-        return 0;
+        try{
+            Request* Request1 = new Request(requester_name, start_section, end_section, is_request_on_write, time);
+            Register* Register1 = new Register(Request1);
+            Programm1->add_register_to_programm(Register1);
+            return 0;
+        }
+        catch(exception)
+        {
+            return 1;
+        }
+        
     }
 
     void programm_print(Programm *P)
