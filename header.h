@@ -251,14 +251,15 @@ public:
 
     void print()
     {
-        cout << "programm_name = " << programm_name << ", start program at " << time_start_programm << "\n" << endl;
+        cout << "programm_name = " << programm_name << "start programm at " << time_start_programm << "\n" << endl;
         cout << "requester_name, start_section, is_request_on_write, time" << endl;
         Register *p = head;
         while(p != NULL)
         {
             p->data->print();
             p=p->next;
-        }   
+        }
+        cout << "\n";   
     }
 
 
@@ -275,6 +276,6 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
 int model(vector <Programm*> &programm_vector);
 int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <int, Programm*> > &disk_vector, vector <Programm*> &programm_vector);
 int is_deadlock(multimap <Programm*, Programm*> wait_map);
-
+void print_disk(vector <multimap <int, Programm*> > &disk_vector);
 
 

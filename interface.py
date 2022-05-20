@@ -20,7 +20,7 @@ t=["2","2","2","2","2"]
 lib_disk.create_wrapper.restype = ctypes.c_void_p
 lib_disk.create_wrapper.argtypes=[]
 Wrap=lib_disk.create_wrapper()
-
+'''
 lib_disk.create_programm.argtypes = [ctypes.c_char_p, ctypes.c_void_p, ctypes.c_int]
 lib_disk.create_programm.restype = ctypes.c_void_p
 Programm1 = lib_disk.create_programm(bytes("Programm1", encoding="utf-8"), Wrap, 0)
@@ -37,7 +37,7 @@ lib_disk.add_register_to_programm(Programm1, bytes("request1", encoding="utf-8")
 
 lib_disk.programm_print.argtypes = [ctypes.c_void_p]
 #lib_disk.programm_print(Programm1)
-
+'''
 file = open("data_file.txt", "r")
 line = file.readline()#read comment line
 number_of_programms = int(file.readline())
@@ -61,22 +61,29 @@ for i in range(number_of_programms):
         end_section = int(line_list[2])
         is_request_on_write = int(line_list[3])
         reauest_time = line_list[4]
-        print(f"test {j}")
+        #print(f"test {j}")
         is_error = lib_disk.add_register_to_programm(Programm1, bytes(request_name, encoding="utf-8"), start_section,
         end_section, is_request_on_write , bytes(reauest_time, encoding="utf-8"))
-        print(f"test111 {j}")
+        #print(f"test111 {j}")
         if(is_error==0):
-            print("OK")
-        else: 
-            print(f"Error in create {j} of programm {i}")
+            #print("OK")
+            pass
+        else:
+            pass 
+            #print(f"Error in create {j} of programm {i}")
 
 
-#lib_disk.programm_print(Programm1)     
+    #lib_disk.programm_print(Programm1)     
 
 
+lib_disk.Wrap_print.argtypes = [ctypes.c_void_p]
+lib_disk.Wrap_print.restype = ctypes.c_int
+lib_disk.Wrap_print(Wrap)
 
 
-
+lib_disk.model_c.argtypes = [ctypes.c_void_p]
+lib_disk.model_c.restype = ctypes.c_int
+lib_disk.model_c(Wrap)
 
 
 

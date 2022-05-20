@@ -6,7 +6,7 @@
 
 class Wrapper{
 public:
-    vector <multimap <int, Programm*> > disk_vector;
+    //vector <multimap <int, Programm*> > disk_vector;
     vector <Programm*> programm_vector;
     
     Wrapper() {}

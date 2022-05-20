@@ -115,3 +115,21 @@ int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <in
 
 
 }
+
+
+void print_disk(vector <multimap <int, Programm*> > &disk_vector)
+{
+    multimap <int, Programm*> mp;
+    multimap <int, Programm*> :: iterator it;
+    int disk_i=0;
+    for(disk_i=0; disk_i<disk_vector.size(); disk_i++)
+    {
+        mp = disk_vector[disk_i];
+        cout << it->first << ":  ";
+        for(;it!=mp.end( );it++)
+        {
+            cout << it->second << "  ";
+        }
+        cout << "\n";
+    }
+}

@@ -6,8 +6,9 @@
 
 int model(vector <Programm*> &programm_vector)
 {
+    printf("start model");
     int real_time=0;
-    
+    printf("real_time = %d", real_time);
     vector <multimap <int, Programm*> > disk_vector;
     multimap <Programm*, Programm*> wait_map;
     
@@ -39,7 +40,8 @@ int model(vector <Programm*> &programm_vector)
         }
     }
 
-
+    printf("real_time = %d", real_time);
+    print_disk(disk_vector);
 
     //real_time++; переход на следующий шаг
 
