@@ -78,7 +78,7 @@ for i in range(number_of_programms):
 
 lib_disk.Wrap_print.argtypes = [ctypes.c_void_p]
 lib_disk.Wrap_print.restype = ctypes.c_int
-lib_disk.Wrap_print(Wrap)
+#lib_disk.Wrap_print(Wrap)
 
 
 lib_disk.model_c.argtypes = [ctypes.c_void_p]

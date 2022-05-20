@@ -45,6 +45,7 @@ extern "C"{
     
     int model_c(Wrapper *W)
     {
+        W->print();
         printf("start model_c\n");
         model(W->programm_vector);
         return 0;
@@ -52,13 +53,8 @@ extern "C"{
 
     int Wrap_print(Wrapper *W)
     {
-        vector <Programm*> programm_vector = W->programm_vector;
-        int i;
-        for(i=0; i<programm_vector.size(); i++)
-        {
-            programm_vector[i]->print();
-        }
-        //programm_vector[0]->print();
+        W->print();
+        return 0;
     }
    
 

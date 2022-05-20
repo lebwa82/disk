@@ -37,7 +37,7 @@ int test1()
         }
         catch(exception)
         {
-            cout << "Error in creating";
+            //cout << "Error in creating";
         }
     }
     
@@ -99,6 +99,12 @@ int test2()
 
 
     //Programm1->print();
+    vector <Programm*> programm_vector;
+    printf("size = %d\n", programm_vector.size());
+    programm_vector.push_back(Programm1);
+    printf("size = %d\n", programm_vector.size());
+    programm_vector[0]->print();
+    model(programm_vector);
 
 
     return 0;

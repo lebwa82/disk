@@ -17,6 +17,15 @@ public:
         return 0;
     }
 
+    void print()
+    {
+        int i;
+        for(i=0; i<programm_vector.size(); i++)
+        {
+            programm_vector[i]->print();
+        }
+
+    }
     
 
 };

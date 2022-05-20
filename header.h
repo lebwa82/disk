@@ -59,27 +59,27 @@ public:
         is_request_on_write = !is_request_on_write;
     }
 
-    const int operator>(const Single_cell_request& other) const
+    int operator>(const Single_cell_request& other) const
     {
         //printf("operator>: %d %d", start_section, other.start_section);
         return start_section > other.start_section;  
     }
 
-    const int operator<(const Single_cell_request& other) const
+    int operator<(const Single_cell_request& other) const
     {
         //printf("operator<: %d %d", start_section, other.start_section);
         return start_section < other.start_section;  
     }
 
-    const int operator==(const Single_cell_request& other) const
+    int operator==(const Single_cell_request& other) const
     {
         return start_section == other.start_section;
     }
-    const int operator>=(const Single_cell_request& other) const
+    int operator>=(const Single_cell_request& other) const
     {
         return start_section >= other.start_section;   
     }
-    const int operator<=(const Single_cell_request& other) const
+    int operator<=(const Single_cell_request& other) const
     {
         return start_section <= other.start_section; 
     }
