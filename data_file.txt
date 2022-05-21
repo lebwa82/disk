@@ -1,5 +1,5 @@
 Number of Programms
-2
+1
 Programm name 
 programm1
 Time start programm
@@ -8,8 +8,8 @@ Number of requests
 3 
 requester_name, start_section, end_section, is_request_on_write, time
 request2 -1 5 0 -1
-request3 3 6 1 10
-request4 4 7 0 100
+request3 3 5 1 2
+request4 6 9 0 4
 Programm name 
 programm2
 Time start programm

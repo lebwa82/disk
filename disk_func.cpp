@@ -9,11 +9,11 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
 {//вернет список программ которые надо подождать
     int flag=0;//есть ли невозможные для записи клетки
     multimap <int, Programm*> blocked_cell; 
-    printf("disk_request1\n");
+    printf("start_section() = %d end_section = %d\n", current_register->data->get_start_section(),current_register->data->get_end_section());
     for(int disk_i=current_register->data->get_start_section(); 
     disk_i<current_register->data->get_end_section(); disk_i++)//идем по области диска
     {
-        printf("disk_request2\n");
+       
         if(disk_vector[disk_i].count(1)+disk_vector[disk_i].count(is_on_read)>0)//если не пустой
         {//если хочу читать - то не должно быть запросов на запись. А если хочу писать - то никаких
             flag=1;//так это попытка записи, то если кто-то еще смотрит
@@ -24,11 +24,11 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
             //я в любом случае найду deadblock - только позже
         }
     }
-    printf("disk_request3\n");
+  
 
     if(flag==1)//если какой-то блок недоступен
     {
-        printf("flag=1\n");
+        //printf("flag=1\n");
         multimap <int, Programm*> :: iterator it;
         it = blocked_cell.begin();
         for(;it!=blocked_cell.end( );it++)
@@ -49,15 +49,15 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
     }
 
     else//то есть запись возможна
-    {   printf("else flag=0\n");
+    {  // printf("else flag=0\n");
         for(int disk_i=current_register->data->get_start_section(); 
         disk_i<current_register->data->get_end_section(); disk_i++)
         {//Пишем данные
             disk_vector[disk_i].insert(make_pair(1, current_programm));
         }
-        puts("after else for");
+        //puts("after else for");
         current_programm->delete_reqister_from_programm(current_register);
-        puts("after else for2");
+        //puts("after else for2");
     }
     return 0;
 
@@ -134,12 +134,12 @@ void print_disk(vector <multimap <int, Programm*> > &disk_vector)
         //printf("mp.size()=%d\n", mp.size());
         if(mp.size()>0)
         {
-            printf("size>0\n");
+            //printf("size>0\n");
             it = mp.begin();
-            cout << it->first << ":  ";
+            printf("cell %d: ", disk_i);
             for(;it!=mp.end( );it++)
             {
-                cout << it->second << "  ";
+                printf("%s operation %d",it->second->programm_name.c_str(), it->first);
             }
             cout << "\n";
 
