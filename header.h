@@ -243,6 +243,7 @@ public:
                 p->next = y;
                 return 0;
             }
+            p=p->next;
         }
         return 1;//такого регистра в программе нет
     }
