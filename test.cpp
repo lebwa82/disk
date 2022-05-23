@@ -59,11 +59,11 @@ int test2()
     map <char, Programm*> mp1;
     vector <map <char, Programm*> > dick_vectorl;
     //vector <Programm*> vector_programm;
-    string strp[]={"request1_programm1","request2_programm1", "request3_programm1", "request4_programm1", "request5_programm2"};
-    int start[]={3,1,5,4,2};
-    int end[]={7,8,9,10,11};
+    string strp[]={"request1_programm1","request2_programm1", "request4_programm1", "request3_programm1", "request5_programm2"};
+    int start[]={3,1,5,10,15};
+    int end[]={7,8,9,12,21};
     bool write[]={0,0,1,0,1};
-    string t[]={"2","2","2","2","2"}; 
+    string t[]={"2","3","5","7","8"}; 
 
     string name="programm1";
     Programm *Programm1 = new Programm(name);

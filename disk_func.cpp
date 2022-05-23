@@ -48,17 +48,18 @@ int disk_request(int real_time, int is_on_read, Programm* current_programm,
         }  
     }
 
-    else//то есть запись возможна
+    else//то есть запись или чтение возможно
     {  // printf("else flag=0\n");
         for(int disk_i=current_register->data->get_start_section(); 
         disk_i<current_register->data->get_end_section(); disk_i++)
         {//Пишем данные
-            disk_vector[disk_i].insert(make_pair(1, current_programm));
+            disk_vector[disk_i].insert(make_pair(!(is_on_read), current_programm));
         }
         //puts("after else for");
-        current_programm->delete_reqister_from_programm(current_register);
+        current_programm->delete_reqister_from_programm(current_register);//выполнили запрос - регистр можно удалить
         //puts("after else for2");
     }
+    //printf("end disk_request\n");
     return 0;
 
 }
@@ -77,6 +78,8 @@ int is_deadlock(multimap <Programm*, Programm*> wait_map)
             if(one->first == two->second && one->second == two->first)
             {
                 return 1;//все плохо - дедблок есть
+                //кстати тут учтена ситуация, когда два запроса одной программы запрашивают
+                //одни и те же участки диска
             }
         }
     }
@@ -88,7 +91,7 @@ int is_deadlock(multimap <Programm*, Programm*> wait_map)
 
 int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <int, Programm*> > &disk_vector, vector <Programm*> &programm_vector)
 {
-    if(current_programm->head!= NULL)
+    if(current_programm->head->next!= NULL)
     {
         return 1;//если в программе еще есть запросы - ее удалять не надо
     }
@@ -98,11 +101,12 @@ int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <in
     for(disk_i=0; disk_i<disk_vector.size(); disk_i++)
     {
         mp = disk_vector[disk_i];
-        for(;it!=mp.end( );it++)
+        for(it=mp.begin();it!=mp.end( );it++)
         {
             if(it->second == current_programm)
             {
                 mp.erase(it);//Нужно ли сделать it--?
+                it--;
             }
         }
         vector <Programm*> :: iterator v;
@@ -144,7 +148,5 @@ void print_disk(vector <multimap <int, Programm*> > &disk_vector)
             cout << "\n";
 
         }
-        
-        
     }
 }
