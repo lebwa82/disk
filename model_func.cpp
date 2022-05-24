@@ -8,7 +8,7 @@ int model(vector <Programm*> &programm_vector)
 {
    // printf("start model\n");
     int real_time=0;
-    vector <multimap <int, Programm*> > disk_vector(100);
+    vector <multimap <int, Programm*> > disk_vector(30);
     multimap <Programm*, Programm*> wait_map;
     
     int i=0;

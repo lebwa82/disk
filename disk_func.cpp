@@ -99,25 +99,29 @@ int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <in
     current_programm->print();
     multimap <int, Programm*> mp;
     multimap <int, Programm*> :: iterator it;
+    multimap <int, Programm*> :: iterator it1;
     int disk_i=0;
     for(disk_i=0; disk_i<disk_vector.size(); disk_i++)
     {
+       // printf("disk_i = %d\n", disk_i);
         mp = disk_vector[disk_i];
         for(it=mp.begin();it!=mp.end( );it++)
         {
+           // printf("before if\n");
             if(it->second == current_programm)
             {
-                printf("before erase\n");
-                mp.erase(it);//Нужно ли сделать it--?
-                it=mp.begin();
-                printf("after erase\n");
+               // printf("erase1\n");
+                mp.erase(it);
+                disk_vector[disk_i] = mp;
+                break;//по идее программа может делать только одно действие
             }
-            printf("after if\n");
+            
+           // printf("after if\n");
         }
-        printf("after for1\n");
     }
-    printf("after for2\n");
+   
     print_disk(disk_vector);
+    printf("after print_disk\n");
     
     vector <Programm*> :: iterator v;
     for(v = programm_vector.begin(); v!=programm_vector.end(); v++)
@@ -143,6 +147,7 @@ void print_disk(vector <multimap <int, Programm*> > &disk_vector)
     multimap <int, Programm*> mp;
     multimap <int, Programm*> :: iterator it;
     int disk_i=0;
+    printf("Printing disk:\n");
     for(disk_i=0; disk_i<disk_vector.size(); disk_i++)
     {
        // puts("print_disk for");
@@ -151,9 +156,8 @@ void print_disk(vector <multimap <int, Programm*> > &disk_vector)
         if(mp.size()>0)
         {
             //printf("size>0\n");
-            it = mp.begin();
             printf("cell %d: ", disk_i);
-            for(;it!=mp.end( );it++)
+            for(it = mp.begin();it!=mp.end( );it++)
             {
                 printf("%s operation %d",it->second->programm_name.c_str(), it->first);
             }
