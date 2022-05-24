@@ -95,6 +95,8 @@ int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <in
     {
         return 1;//если в программе еще есть запросы - ее удалять не надо
     }
+    printf("deleting programm\n");
+    current_programm->print();
     multimap <int, Programm*> mp;
     multimap <int, Programm*> :: iterator it;
     int disk_i=0;
@@ -105,20 +107,30 @@ int delete_programm_if_it_empty(Programm* current_programm, vector <multimap <in
         {
             if(it->second == current_programm)
             {
+                printf("before erase\n");
                 mp.erase(it);//Нужно ли сделать it--?
-                it--;
+                it=mp.begin();
+                printf("after erase\n");
             }
+            printf("after if\n");
         }
-        vector <Programm*> :: iterator v;
-        for(v = programm_vector.begin(); v!=programm_vector.end(); v++)
-        {
-            if(*v==current_programm)
-            {
-                programm_vector.erase(v);
-            }
-        }
-        
+        printf("after for1\n");
     }
+    printf("after for2\n");
+    print_disk(disk_vector);
+    
+    vector <Programm*> :: iterator v;
+    for(v = programm_vector.begin(); v!=programm_vector.end(); v++)
+    {
+        if(*v==current_programm)
+        {
+            programm_vector.erase(v);
+        }
+    }
+
+    
+        
+    
     return 0;
 
 

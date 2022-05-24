@@ -100,9 +100,9 @@ int test2()
 
     //Programm1->print();
     vector <Programm*> programm_vector;
-    printf("size = %d\n", programm_vector.size());
+    printf("size = %lu\n", programm_vector.size());
     programm_vector.push_back(Programm1);
-    printf("size = %d\n", programm_vector.size());
+    printf("size = %lu\n", programm_vector.size());
     programm_vector[0]->print();
     model(programm_vector);
 
